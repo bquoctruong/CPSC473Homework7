@@ -6,7 +6,7 @@ var extract = require("./extract");
 //const Mime = require('mime/Mime');
 //var mime = require("mime");
 
-//var wss = require("./websockets-server"); //CH. 16 addition
+var wss = require("./websockets-server"); //CH. 16 addition
 
 
 //Writes an error
