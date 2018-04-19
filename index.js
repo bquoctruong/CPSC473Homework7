@@ -1,6 +1,5 @@
 var http = require("http");
 var fs = require("fs");
-//var path = require("path"); //Ch. 15 addition
 
 var extract = require("./extract");
 //const Mime = require('mime/Mime');
@@ -10,7 +9,7 @@ var wss = require("./websockets-server"); //CH. 16 addition
 
 
 //Writes an error
-var handleError = function(err, res){
+var handleError = function(err, res) {
   //var errorPage = extract(res.url);
   res.writeHead(err);
   res.end();
@@ -18,46 +17,22 @@ var handleError = function(err, res){
 
 
 
-var server = http.createServer(function(req, res){
+var server = http.createServer(function(req, res) {
   console.log("Responding to a request.");
-  //var url = req.url;  //Ch. 15 addition
-  //var filePath = path.resolve(__dirname, "app", fileName);
-  //var filePath = extract(req.url);
-  /*
-  var fileName = "index.html";
-  if(url.length > 1){
-    fileName = url.substring(1);
-  }
-  console.log(fileName);
-  var filePath = path.resolve(__dirname, "app", fileName);
-  */
+
   var filePath = extract(req.url);
-  fs.readFile(filePath, function(err,data){
-    if (err){
-      //fs.readFile("app/error.html");
-      //handleError(err, res);
-      fs.readFile("app/mime.pdf", function(err,data){
-        if (err){
-          handleError(err, res);
-          return;
-        } else{
-          //res.setContentType("application/*");
-          //var lol = __dirname;
-          //var segments[] = path.split(".");
-          //var doc = segments[segments.length - 1];
-          //var contentType = fs.writeHead("contentType");
-          res.setHeader("Content-Type", "application/octet-stream"); //MIME header
-          //res.setHeader("Content-Type", "text/*");
-          //res.setHeader("Content-Type", "application/pdf");
-          res.end(data);
-        }
-      });
+  fs.readFile(filePath, function(err, data) {
+    if (err) {
+      handleError(err, res);
       return;
-    } else{
-      //res.setHeader("Content-Type", "text/html"); //MIME header
+    } else {
+      res.setHeader("Content-Type", "text/html");
       res.end(data);
     }
+
+
   });
+
   /*
   fs.readFile("app/index.html", function(err,data){
     if (err){
@@ -108,3 +83,4 @@ server.listen(3000);
 //            run "npm install --save-dev babel-preset-es2015"
 //            use "sudo" if you have to
 //STEP NINE: run "npm install --savedev browserify babelify watchify"
+//4/15 Already installed everytihng in Ch. 17
